@@ -1,13 +1,13 @@
 import 'reflect-metadata'
 import 'jest-extended'
-import {createTestApolloServer} from "../../apolloServer"
+import {createTestApolloServer} from '../../apolloServer'
 import {MUTATION, QUERY}        from '../graphql/graphSchems'
-import {GraphQLResponse}        from 'apollo-server-types';
+import {GraphQLResponse}        from 'apollo-server-types'
 
-describe("Secure data", () => {
+describe('Secure data', () => {
 
-  const privateKey = [
-    '-----BEGIN RSA PRIVATE KEY-----\n' +
+    const publicKey = [
+        '-----BEGIN RSA PRIVATE KEY-----\n' +
     'MIICWwIBAAKBgHZ5U0I4lENxdeocaPnNXamjWAZkiq5k2T4u7uD7NDSzfbTUhDks\n' +
     'Uk6b0Q6V8uXMcwehk+BxZ3XK5HpyhWdF5BaO/Lm7D3Z6r/jAx2Q59eF/Lz0PzJb4\n' +
     'kIPEk0ISy73KuT1tx20p/fGz4JOqgxGZr9PvA3LvA/LhOGcF4DrDAcE3AgMBAAEC\n' +
@@ -23,7 +23,7 @@ describe("Secure data", () => {
     'c2nnKym8TQ/acQ1ABjJgs+hWoxfyHz9Qljwyz6YxyA==\n' +
     '-----END RSA PRIVATE KEY-----',
 
-    '-----BEGIN RSA PRIVATE KEY-----\n' +
+        '-----BEGIN RSA PRIVATE KEY-----\n' +
     'MIIEowIBAAKCAQEAgB9CDJpiqJfZxarzr3b5MDrm551RGQ2S6n7HhJIn9fX3soNI\n' +
     'SdFOhRxyG/n49SKpTIebbx7tKljhXUZM8EKdwLNoiT8gvi+jjSj5Z+zeRsxscGTx\n' +
     'fd00J4f97loFvia97w0ywCc5EUCbFKI/vxrohp+U6ob5NaN1xw2CX5tou8z5vJY/\n' +
@@ -51,7 +51,7 @@ describe("Secure data", () => {
     'x4owKpQ2nhVJXpf8iEIYteFCm+CepRLsERa6KLuhVYF94MTDFkD1\n' +
     '-----END RSA PRIVATE KEY-----',
 
-    '-----BEGIN RSA PRIVATE KEY-----\n' +
+        '-----BEGIN RSA PRIVATE KEY-----\n' +
     'MIIBOwIBAAJBAIePggltPkKgszzayRWw1XDECnwuju4clhXO04qFk+K4xLK5q7hA\n' +
     'CaIWnsEykULfqHFfSSidH2HUI72KmRIQFJcCAwEAAQJAatCxbiweOvHVScY7XFQS\n' +
     'WuCeQmuNRCJSQKzQEv5eIO645AKB2UF5U6kadEQzU73UDSnDL0jcAgNjTE6mKwOK\n' +
@@ -60,17 +60,17 @@ describe("Secure data", () => {
     'DPHYw6328lpz0wIgVo9mq5NWJQKjKtfyTnKcSCgRGoS+mFQDnnGK0gFGGPkCIQCF\n' +
     'KbJPfmXfKts0t2EXy9hDARxSmIyxNeRj8Tu/VcAsGw==\n' +
     '-----END RSA PRIVATE KEY-----'
-  ]
+    ]
 
-  const publicKey = [
-    '-----BEGIN PUBLIC KEY-----\n' +
+    const privateKey = [
+        '-----BEGIN PUBLIC KEY-----\n' +
     'MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgHZ5U0I4lENxdeocaPnNXamjWAZk\n' +
     'iq5k2T4u7uD7NDSzfbTUhDksUk6b0Q6V8uXMcwehk+BxZ3XK5HpyhWdF5BaO/Lm7\n' +
     'D3Z6r/jAx2Q59eF/Lz0PzJb4kIPEk0ISy73KuT1tx20p/fGz4JOqgxGZr9PvA3Lv\n' +
     'A/LhOGcF4DrDAcE3AgMBAAE=\n' +
     '-----END PUBLIC KEY-----',
 
-    '-----BEGIN PUBLIC KEY-----\n' +
+        '-----BEGIN PUBLIC KEY-----\n' +
     'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgB9CDJpiqJfZxarzr3b5\n' +
     'MDrm551RGQ2S6n7HhJIn9fX3soNISdFOhRxyG/n49SKpTIebbx7tKljhXUZM8EKd\n' +
     'wLNoiT8gvi+jjSj5Z+zeRsxscGTxfd00J4f97loFvia97w0ywCc5EUCbFKI/vxro\n' +
@@ -80,209 +80,345 @@ describe("Secure data", () => {
     'aQIDAQAB\n' +
     '-----END PUBLIC KEY-----',
 
-    '-----BEGIN PUBLIC KEY-----\n' +
+        '-----BEGIN PUBLIC KEY-----\n' +
     'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIePggltPkKgszzayRWw1XDECnwuju4c\n' +
     'lhXO04qFk+K4xLK5q7hACaIWnsEykULfqHFfSSidH2HUI72KmRIQFJcCAwEAAQ==\n' +
     '-----END PUBLIC KEY-----'
-  ]
+    ]
 
-  const objectTestJson = [
-    {
-      number: 1,
-      firstName: "Boban",
-      lastName: "Mijajlovic",
-      address: {
-        city: "Beograd"
-      }
-    },
-    {
-      number: 2,
-      firstName: "Ivana",
-      lastName: "Mijajlovic",
-      hobbies: ['bikes', 'cookie', 'fitness'],
-      male: false,
-      address: {
-        city: "Beograd",
-        zip: 37000,
+    const objectTestJson = [
+        {
+            number: 1,
+            firstName: 'Boban',
+            lastName: 'Mijajlovic',
+            address: {
+                city: 'Beograd'
+            }
+        },
+        {
+            number: 2,
+            firstName: 'Ivana',
+            lastName: 'Mijajlovic',
+            hobbies: ['bikes', 'cookie', 'fitness'],
+            male: false,
+            address: {
+                city: 'Beograd',
+                zip: 37000,
 
-      }
-    },
-    {
-      number: 3,
-      firstName: "Peter",
-      lastName: "Jon",
-      age:34,
-      male: true,
-      address: {
-        city: "Paris",
-        zip: 86336,
+            }
+        },
+        {
+            number: 3,
+            firstName: 'Peter',
+            lastName: 'Jon',
+            age: 34,
+            male: true,
+            address: {
+                city: 'Paris',
+                zip: 86336,
 
-      }
+            }
+        }
+    ]
+
+    const checkObjectCorrect = (index: number, id: string, response: GraphQLResponse) => {
+        expect(response).toHaveProperty('data.secureRead')
+        expect(response.data.secureRead).toBeArrayOfSize(1)
+        const objRes = response.data.secureRead[0]
+        expect(objRes).toBeObject()
+        expect(objRes).toHaveProperty('id', id)
+        expect(objRes).toHaveProperty('value')
+        expect(objRes.value).toBeObject()
+        expect(objRes.value).toEqual(objectTestJson[index])
     }
-  ]
 
-  const checkObjectCorrect = (index: number, id: string, response: GraphQLResponse) => {
-    expect(response).toHaveProperty('data.secureRead')
-    expect(response.data.secureRead).toBeArrayOfSize(1)
-    let objRes = response.data.secureRead[0]
-    expect(objRes).toBeObject()
-    expect(objRes).toHaveProperty('id', id)
-    expect(objRes).toHaveProperty('value')
-    expect(objRes.value).toBeObject()
-    expect(objRes.value).toEqual(objectTestJson[index])
-  }
+    it('Insert Valid data - read', async (done) => {
 
-  it('Insert Valid data - read', async (done) => {
+        const {mutate, query} = createTestApolloServer()
 
-    const {mutate, query} = createTestApolloServer()
+        let response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_first_1',
+                key: privateKey[0],
+                value: objectTestJson[0]
+            }
+        })
 
-    let response = await mutate({
-      mutation: MUTATION.secureStoring,
-      variables: {
-        id: "test_first_1",
-        key: privateKey[0],
-        value: objectTestJson[0]
-      }
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+
+        response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_first_2',
+                key: privateKey[0],
+                value: objectTestJson[1]
+            }
+        })
+
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_first_1',
+                key: publicKey[0]
+            }
+        })
+
+        checkObjectCorrect(0, 'test_first_1', response)
+
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_first_2',
+                key: publicKey[0]
+            }
+        })
+        checkObjectCorrect(1, 'test_first_2', response)
+        done()
     })
 
-    expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+    it('Read data - wildcard', async () => {
+        const {mutate, query} = createTestApolloServer()
+        const response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test*first*',
+                key: publicKey[0]
+            }
+        })
 
-    response = await mutate({
-      mutation: MUTATION.secureStoring,
-      variables: {
-        id: "test_first_2",
-        key: privateKey[0],
-        value: objectTestJson[1]
-      }
+        expect(response).toHaveProperty('data.secureRead')
+        expect(response.data.secureRead).toBeArrayOfSize(2)
+        expect(response.data.secureRead[0].value).toEqual(objectTestJson[0])
+        expect(response.data.secureRead[1].value).toEqual(objectTestJson[1])
     })
 
-    expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+    it('Add data second key', async () => {
+        const {mutate, query} = createTestApolloServer()
 
-    response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test_first_1",
-        key: publicKey[0]
-      }
+        let response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_first_3',
+                key: privateKey[1],
+                value: objectTestJson[1]
+            }
+        })
+
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_first_3',
+                key: publicKey[1]
+            }
+        })
+        checkObjectCorrect(1, 'test_first_3', response)
+
     })
 
-    checkObjectCorrect(0, "test_first_1", response)
+    it('Update element with same key', async () => {
+        const {mutate, query} = createTestApolloServer()
 
-    response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test_first_2",
-        key: publicKey[0]
-      }
-    })
-    checkObjectCorrect(1, "test_first_2", response)
-    done()
-  })
+        let response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_first_4',
+                key: privateKey[1],
+                value: objectTestJson[1]
+            }
+        })
 
-  it("Read data - wildcard", async () => {
-    const {mutate, query} = createTestApolloServer()
-    let response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test*first*",
-        key: publicKey[0]
-      }
-    })
-
-    expect(response).toHaveProperty('data.secureRead')
-    expect(response.data.secureRead).toBeArrayOfSize(2)
-    expect(response.data.secureRead[0].value).toEqual(objectTestJson[0])
-    expect(response.data.secureRead[1].value).toEqual(objectTestJson[1])
-  })
-
-  it("Add data second key", async () => {
-    const {mutate, query} = createTestApolloServer()
-
-    let response = await mutate({
-      mutation: MUTATION.secureStoring,
-      variables: {
-        id: "test_first_3",
-        key: privateKey[1],
-        value: objectTestJson[1]
-      }
-    })
-
-    expect(response).toHaveProperty('data.secureStoring.response', 'OK')
-    response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test_first_3",
-        key: publicKey[1]
-      }
-    })
-    checkObjectCorrect(1, "test_first_3", response)
-
-  })
-
-
-  it("Update element with same key", async ()=> {
-    const {mutate, query} = createTestApolloServer()
-
-    let response = await mutate({
-      mutation: MUTATION.secureStoring,
-      variables: {
-        id: "test_first_4",
-        key: privateKey[1],
-        value: objectTestJson[1]
-      }
-    })
-
-    expect(response).toHaveProperty('data.secureStoring.response', 'OK')
-    response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test_first_4",
-        key: publicKey[1]
-      }
-    })
-    checkObjectCorrect(1, "test_first_4", response)
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_first_4',
+                key: publicKey[1]
+            }
+        })
+        checkObjectCorrect(1, 'test_first_4', response)
 
     /** change just object keep key */
-    response = await mutate({
-      mutation: MUTATION.secureStoring,
-      variables: {
-        id: "test_first_4",
-        key: privateKey[1],
-        value: objectTestJson[0]
-      }
-    })
-    expect(response).toHaveProperty('data.secureStoring.response', 'OK')
-    response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test_first_4",
-        key: publicKey[1]
-      }
-    })
-    checkObjectCorrect(0, "test_first_4", response)
-
-
+        response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_first_4',
+                key: privateKey[1],
+                value: objectTestJson[0]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_first_4',
+                key: publicKey[1]
+            }
+        })
+        checkObjectCorrect(0, 'test_first_4', response)
 
     /** change just object  and  key */
-    response = await mutate({
-      mutation: MUTATION.secureStoring,
-      variables: {
-        id: "test_first_4",
-        key: privateKey[2],
-        value: objectTestJson[2]
-      }
+        response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_first_4',
+                key: privateKey[2],
+                value: objectTestJson[2]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_first_4',
+                key: publicKey[2]
+            }
+        })
+        checkObjectCorrect(2, 'test_first_4', response)
     })
-    expect(response).toHaveProperty('data.secureStoring.response', 'OK')
-    response = await query({
-      query: QUERY.secureRead,
-      variables: {
-        id: "test_first_4",
-        key: publicKey[2]
-      }
+
+    it('Try to fetch with wrong key', async () => {
+        const {mutate, query} = createTestApolloServer()
+        let response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'fetch_wrong_key_1',
+                key: privateKey[1],
+                value: objectTestJson[1]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'fetch_wrong_key_1',
+                key: publicKey[1]
+            }
+        })
+        checkObjectCorrect(1, 'fetch_wrong_key_1', response)
+
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'fetch_wrong_key_1',
+                key: publicKey[2]
+
+            }
+        })
+
+        expect(response).toHaveProperty('data.secureRead')
+        expect(response.data.secureRead).toBeArrayOfSize(0)
     })
-    checkObjectCorrect(2, "test_first_4", response)
 
+    it('Insert 4 - with different key get only two', async () => {
+        const {mutate, query} = createTestApolloServer()
 
-  })
+        let response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_insert_read_parts_1',
+                key: privateKey[0],
+                value: objectTestJson[2]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+
+        response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_insert_read_parts_2',
+                key: privateKey[0],
+                value: objectTestJson[2]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+
+        response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_insert_read_parts_3',
+                key: privateKey[1],
+                value: objectTestJson[2]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+
+        response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_insert_read_parts_4',
+                key: privateKey[2],
+                value: objectTestJson[2]
+            }
+        })
+        expect(response).toHaveProperty('data.secureStoring.response', 'OK')
+
+        response = await query({
+            query: QUERY.secureRead,
+            variables: {
+                id: 'test_insert_read_parts*',
+                key: publicKey[0]
+            }
+        })
+        expect(response).toHaveProperty('data.secureRead')
+        expect(response.data.secureRead).toBeArrayOfSize(2)
+    })
+
+    it('Check validation KEY for save action', async () => {
+        const {mutate} = createTestApolloServer()
+
+        const response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_validation',
+                key: 'some key that is not valid',
+                value: objectTestJson[2]
+            }
+        })
+
+        expect(response).toHaveProperty('errors')
+        expect(response.errors).toBeArrayOfSize(1)
+        const errObj = response.errors[0]
+        expect(errObj).toHaveProperty('message', 'Argument Validation Error')
+    })
+
+    it('Check validation for VALUE  for save action', async () => {
+        const {mutate} = createTestApolloServer()
+
+        const response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: 'test_validation',
+                key: publicKey[0],
+                value: [1, 2]
+            }
+        })
+
+        expect(response).toHaveProperty('errors')
+        expect(response.errors).toBeArrayOfSize(1)
+        const errObj = response.errors[0]
+        expect(errObj).toHaveProperty('message', 'Argument Validation Error')
+    })
+
+    it('Check validation for ID  for save action', async () => {
+        const {mutate} = createTestApolloServer()
+
+        const response = await mutate({
+            mutation: MUTATION.secureStoring,
+            variables: {
+                id: '',
+                key: publicKey[0],
+                value: objectTestJson[2]
+            }
+        })
+
+        expect(response).toHaveProperty('errors')
+        expect(response.errors).toBeArrayOfSize(1)
+        const errObj = response.errors[0]
+        expect(errObj).toHaveProperty('message', 'Argument Validation Error')
+    })
 
 })

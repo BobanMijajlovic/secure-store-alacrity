@@ -3,7 +3,7 @@ import {initSequelize, sequelize}   from './sequelize/sequelize'
 import {createTestApolloServer}     from './apolloServer'
 
 beforeAll(async () => {
-    await initSequelize('local', true)
+    await initSequelize('test', true)
     createTestApolloServer()
 })
 

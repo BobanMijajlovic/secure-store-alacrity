@@ -128,7 +128,7 @@ module.exports = {
         '@typescript-eslint/interface-name-prefix': [
             'error',
             {
-                'prefixWithI': 'never'
+                'prefixWithI': 'always'
             }
         ],
         '@typescript-eslint/no-array-constructor': 'error',

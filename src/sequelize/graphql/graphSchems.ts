@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import gql from 'graphql-tag'
 
 const QUERY = {
-  secureRead:gql`
+    secureRead:gql`
     query secureRead($id:String!,$key:String!) {
          secureRead(id:$id,key:$key){
               id,
@@ -23,6 +23,6 @@ const MUTATION = {
 }
 
 export {
-  QUERY,
-  MUTATION
+    QUERY,
+    MUTATION
 }

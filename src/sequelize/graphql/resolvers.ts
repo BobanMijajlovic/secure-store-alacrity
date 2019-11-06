@@ -1,6 +1,6 @@
-import { SecureData} from "../models";
+import { SecureData} from '../models'
 
 export default [
-  SecureData
+    SecureData
 ]
 
