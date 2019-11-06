@@ -10,12 +10,12 @@
 ## Installation
 
 
- config/ default.json  represents the default parameters for the application. <br>
-create <b> local.json</b> with the same structure for local parameters. <br>
+ config/ default.json  represents the default parameters for the application. <br/>
+create ** local.json ** with the same structure for local parameters. <br/>
 
  Secure.data.test.ts  consists  test for application.
 
- Application end point (default if PORT is not changed in local.json)  :  <i> http://localhost:4000/graphql </i>
+ Application end point (default if PORT is not changed in local.json)  :  * http://localhost:4000/graphql *
 
 ```
  $ npm install
