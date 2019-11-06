@@ -2,7 +2,7 @@
   "sequelizeSettings": {
     "local": {
       "username": "root",
-      "password": "temp123$",
+      "password": "",
       "database": "basic-graphql",
       "host": "localhost",
       "logging": true,
@@ -13,7 +13,7 @@
     },
     "test": {
       "username": "root",
-      "password": "temp123$",
+      "password": "",
       "database": "basic-graphql-test",
       "host": "localhost",
       "dialect": "mysql",
