@@ -4,7 +4,7 @@
 
  Securely store data using RSA encryption, logging errors by Winston logger
 
- Node.js, TypeGraphQL,Sequelize, MySql, Apollo, Express
+ Node.js, TypeGraphQL, Sequelize, MySql, Apollo, Express, TypeScript
 
 
 ## Installation
